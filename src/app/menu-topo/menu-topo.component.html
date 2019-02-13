@@ -1,3 +1,12 @@
-<p>
-  menu-topo works!
-</p>
+<section style="text-align: center">
+  <img src={{logo}} alt="logo estamparia pegadas" width="50px"/>
+  <button
+    *ngFor="let botao of botoes; let i; of: index"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center"
+    mat-button
+    color="primary"
+  >
+    {{ botao }}
+  </button>
+</section>
