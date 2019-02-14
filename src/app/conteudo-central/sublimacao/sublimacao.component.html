@@ -1,3 +1,20 @@
-<p>
-  sublimacao works!
-</p>
+<section fxLayout="row" class="slideshow-container">
+  <!--Avisos-->
+  <section *ngIf="aviso.ativo === true">
+    <p>{{ aviso.mensagem }}</p>
+  </section>
+
+  <!--imagem principal-->
+  <div class="mySlides fade">
+    <h1 class="numbertext">{{ imgPoster.titulo }}</h1>
+    <img src="{{ imgPoster.img }}" style="width:20%" />
+    <h2 class="text">{{ imgPoster.descricao }}</h2>
+  </div>
+</section>
+<br />
+<!--propaganda 01-->
+<section>
+  <img src="{{ propaganda01.img }}" alt="propaganda-img"/>
+  <h3>{{ propaganda01.titulo }}</h3>
+  <p>{{ propaganda01.descricao }}</p>
+</section>

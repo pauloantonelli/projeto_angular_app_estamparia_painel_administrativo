@@ -1,13 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <section fxLayout="column" fxLayoutAlign="space-evenly stretch">
-  <app-menu-topo></app-menu-topo>
-  <app-menu-topo-mobile></app-menu-topo-mobile>
+  <app-menu-topo *ngIf="mobile === false"></app-menu-topo>
+  <app-menu-topo-mobile *ngIf="mobile === true"></app-menu-topo-mobile>
   <hr />
-  <app-conteudo-central></app-conteudo-central>
+  <router-outlet></router-outlet>
   <hr />
   <app-portifolio-clientes></app-portifolio-clientes>
   <app-pre-rodape></app-pre-rodape>
   <hr />
   <app-rodape></app-rodape>
-  <router-outlet></router-outlet>
 </section>

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PortifolioClientesComponent implements OnInit {
 
+  protected slide = ['../../assets/img1.jpeg', '../../assets/img2.jpg', '../../assets/img3.jpeg'];
+
   constructor() { }
 
   ngOnInit() {

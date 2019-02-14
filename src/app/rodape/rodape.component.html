@@ -1,3 +1,41 @@
-<p>
-  rodape works!
-</p>
+<section>
+  <h1>Telefone</h1>
+  <p>Numeros...</p>
+</section>
+
+<section>
+  <h2>Horáriotendimento</h2>
+  <p>horarios...</p>
+</section>
+
+<footer>
+  <section>
+    <p>endereco...</p>
+    <a
+      *ngFor="let icone of redes.link; let i = index"
+      href="{{ redes.link[i] }}"
+      target="_blank"
+    >
+      <img src="{{ redes.icone[i] }}" alt="redes-sociais" />
+    </a>
+  </section>
+
+  <section>
+    <h2>Receba promoções e dicas</h2>
+    <p>
+      Cadastre o seu email e receba a newsletter da equipe Dharma, tendências de
+      estampas, dicas sobre sublimação e muito mais!
+    </p>
+    <input type="email" />
+    <button (click)="enviarEnderecoEmailCliente()" mat-button color="primary">
+      Receber as promoções
+    </button>
+  </section>
+
+  <section *ngIf="email === true">
+    <p>
+      Cadastro feito com sucesso! Em breve voce receberá novas promoções! Fique
+      ligado ;)
+    </p>
+  </section>
+</footer>

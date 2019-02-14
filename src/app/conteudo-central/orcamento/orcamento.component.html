@@ -1,3 +1,81 @@
-<p>
-  orcamento works!
-</p>
+<!--Aviso-->
+<section>
+  <article *ngIf="aviso.ativo === true">
+    <p>{{ aviso.mensagem }}</p>
+  </article>
+</section>
+
+<!--Formulario da pagina-->
+<section>
+  <h1>{{ formulario.titulo }}</h1>
+  <h3>{{ formulario.descricao }}</h3>
+
+  <br />
+
+  <form *ngIf="formulario.envio === false; else formEnvioSucesso">
+    <input type="text" placeholder="Nome" required />
+    <input type="email" placeholder="Email" required />
+    <input type="tel" placeholder="Telefone Fixo" />
+    <input type="tel" placeholder="Celular - Preferência Whatsapp" />
+    <input type="text" placeholder="Empresa" />
+    <p>Fisica</p>
+    <button mat-button color="primary" (click)="tipoPessoa()">
+      Pessoa fisica ou juridica?
+    </button>
+    <p>Juridica *preferido</p>
+    <input *ngIf="formulario.pessoa === false" type="text" placeholder="CPF" />
+    <input *ngIf="formulario.pessoa === true" type="text" placeholder="CNPJ" />
+    <select>
+      <option>Segmento</option>
+      <option *ngFor="let segmento of segmentos">{{ segmento }}</option>
+    </select>
+
+    <br />
+
+    <article>
+      <h2>{{ formulario.servicos.tituloServico }}</h2>
+      <div
+        (click)="escolhaDoServico(i)"
+        *ngFor="let titulo of formulario.servicos.titulo; let i = index"
+      >
+        <h4>{{ titulo }}</h4>
+        <div>
+          <img src="{{ formulario.servicos.imgs[i] }}" alt="" width="20%" />
+        </div>
+      </div>
+    </article>
+
+    <br />
+
+    <article>
+      <h2>{{ detalhamento.titulo }}</h2>
+      <form>
+        <input type="number" placeholder="Largura" />
+        <input type="number" placeholder="Altura" />
+        <input type="number" placeholder="Quantidade" min="300" />
+        <p>Cor</p>
+        <input type="color" placeholder="Cor" value="000000" />
+        <textarea placeholder="Mensagem"></textarea>
+        <p>Anexar refêrencia da estampa</p><input type="file"/>
+      </form>
+    </article>
+
+    <br />
+
+    <button
+      mat-button
+      color="primary"
+      (click)="enviaFormulario()"
+      [routerLink]="['orcamento']"
+    >
+      Enviar pedido de orçamento
+    </button>
+  </form>
+
+  <!--Elemento de confirmação do envio do formulário-->
+  <ng-template #formEnvioSucesso>
+    <h3>Já Recebemos seu orçamento!</h3>
+    <p>já ja responderemos de volta, aguarde.</p>
+  </ng-template>
+
+</section>

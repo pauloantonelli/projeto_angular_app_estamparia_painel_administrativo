@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuTopoComponent } from './menu-topo.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     MenuTopoComponent,
@@ -11,6 +12,7 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     MatMenuModule,
     MatButtonModule,
+    RouterModule
   ],
   exports: [
     MenuTopoComponent

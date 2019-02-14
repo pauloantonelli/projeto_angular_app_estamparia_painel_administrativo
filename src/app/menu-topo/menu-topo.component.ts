@@ -8,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class MenuTopoComponent implements OnInit {
 
   protected logo = '../../assets/logo.png';
-  protected botoes = ['Home ', 'Sublimação', 'Orçamento', 'Contato'];
+  protected menus = {
+    botoes: ['home', 'sublimacao', 'orcamento', 'contato'],
+  };
+
   constructor() { }
 
   ngOnInit() {

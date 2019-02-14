@@ -6,7 +6,7 @@ import { OrcamentoComponent } from './conteudo-central/orcamento/orcamento.compo
 import { ContatoComponent } from './conteudo-central/contato/contato.component';
 
 const routes: Routes = [
-  { path: '', component: ConteudoCentralComponent },
+  { path: 'home', component: ConteudoCentralComponent },
   { path: 'sublimacao', component: SublimacaoComponent },
   { path: 'orcamento', component: OrcamentoComponent },
   { path: 'contato', component: ContatoComponent }

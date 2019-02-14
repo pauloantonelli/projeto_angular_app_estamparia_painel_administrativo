@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { ConteudoCentralComponent } from './conteudo-central.component';
 import { ContatoComponent } from './contato/contato.component';
 import { OrcamentoComponent } from './orcamento/orcamento.component';
 import { SublimacaoComponent } from './sublimacao/sublimacao.component';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import { SublimacaoComponent } from './sublimacao/sublimacao.component';
     SublimacaoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    RouterModule,
   ],
   exports: [
     ConteudoCentralComponent

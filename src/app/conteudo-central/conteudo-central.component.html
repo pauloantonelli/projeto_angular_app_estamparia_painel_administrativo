@@ -1,3 +1,68 @@
-<ul>
-  <li *ngFor="let dado of dados">Nome: {{ dado.nome }}<span> Apelido: {{ dado.apelido }} </span></li>
-</ul>
+<div fxLayout="row" class="slideshow-container">
+  <!--Avisos-->
+  <section *ngIf="aviso.ativo === true">
+    <p>{{ aviso.mensagem }}</p>
+  </section>
+
+  <!--Slide-->
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <img src="{{ imgs[0] }}" style="width:20%" />
+    <div class="text">Caption Text</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 3</div>
+    <img src="{{ imgs[1] }}" style="width:20%" />
+    <div class="text">Caption Two</div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 3</div>
+    <img src="{{ imgs[2] }}" style="width:20%" />
+    <div class="text">Caption Three</div>
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br />
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+<!--area propaganda-->
+<section fxLayout="row">
+  <h1>{{ titulo }}</h1>
+  <h2>{{ subtitulo }}</h2>
+</section>
+<section fxLayout="row">
+  <img src="{{ propaganda01.img }}" alt="sublimação" />
+  <h3>{{ propaganda01.titulo }}</h3>
+  <p>{{ propaganda01.descricao }}</p>
+  <article>
+    <h3>{{ propaganda02.titulo }}</h3>
+    <ul>
+      <li *ngFor="let item of propaganda02.lista">{{ item }}</li>
+    </ul>
+  </article>
+  <button mat-button color="primary">{{ propaganda02.btnText }}</button>
+</section>
+
+<section fxLayout="row">
+  <img src="{{ propaganda01.img }}" alt="sublimação" />
+  <h3>{{ propaganda03.titulo }}</h3>
+  <p>{{ propaganda03.descricao }}</p>
+  <article>
+    <h3>{{ propaganda04.titulo }}</h3>
+    <ul>
+      <li *ngFor="let item of propaganda04.lista">{{ item }}</li>
+    </ul>
+  </article>
+  <button mat-button color="primary">{{ propaganda04.btnText }}</button>
+</section>
+
+<hr />
