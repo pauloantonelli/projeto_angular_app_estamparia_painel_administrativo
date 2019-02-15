@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { EnderecoContatoAtendimentoService } from 'src/app/shared/servicos/endereco-contato-atendimento.service';
 
 @Component({
   selector: 'app-contato',
@@ -7,20 +8,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class ContatoComponent implements OnInit {
 
-  protected telefones = ['11 1234-5678', '11 8765-4321'];
+  protected telefones: string[] = [];
   protected horario = {
-    diaDaSemana: 'Segunda a Sexta',
-    horario: '9h00 ás 18h00',
+    diaDaSemana: String,
+    horario: String,
   };
   protected endereco = {
-    rua: 'Rua Xavier Krauss',
-    numero: 560,
-    bairro: 'Vila Leopoldina',
-    cep: '05313-000',
-    estado: 'São Paulo - SP'
+    rua: String,
+    numero: Number,
+    bairro: String,
+    cep: String,
+    estado: String,
   };
 
-  constructor() { }
+  constructor(private contatoService: EnderecoContatoAtendimentoService) {
+    this.telefones = this.contatoService.getTelefones();
+    this.horario = this.contatoService.getHorario();
+    this.endereco = this.contatoService.getEndereco();
+  }
 
   ngOnInit() {
   }

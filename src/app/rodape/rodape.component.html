@@ -1,16 +1,17 @@
 <section>
   <h1>Telefone</h1>
-  <p>Numeros...</p>
+  <p *ngFor="let telefone of telefones">{{ telefone }}</p>
 </section>
 
 <section>
-  <h2>Horáriotendimento</h2>
-  <p>horarios...</p>
+  <h2>Horário de Atendimento</h2>
+  <h3>{{ horario.diaDaSemana }}</h3>
+  <p>{{ horario.horario }}</p>
 </section>
 
 <footer>
   <section>
-    <p>endereco...</p>
+    <h2>{{ endereco.rua }} numero {{ endereco.numero }}, bairro {{ endereco.bairro }}, estado {{ endereco.estado }}, CEP: {{ endereco.cep }}</h2>
     <a
       *ngFor="let icone of redes.link; let i = index"
       href="{{ redes.link[i] }}"
