@@ -1,44 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { OrcamentoService } from 'src/app/shared/services/orcamento/orcamento.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orcamento',
   templateUrl: './orcamento.component.html',
   styleUrls: ['./orcamento.component.scss']
 })
-export class OrcamentoComponent implements OnInit {
+export class OrcamentoComponent implements OnInit, OnDestroy {
 
+  protected inscricao: Subscription;
   // painel de aviso
   protected aviso = {
-    ativo: true,
-    mensagem: 'Quadro de avisos',
+    ativo: null,
+    mensagem: '',
   };
 
   // campos e detalhes do formulário de orcamento
   protected formulario = {
-    titulo: 'Orçamento',
-    descricao: 'Pedir um orçamento expresso para estamparia Pegadas',
+    titulo: '',
+    descricao: '',
     pessoa: true,
     envio: false,
     servicos: {
-      tituloServico: 'Escolha o serviço que deseja:',
-      titulo: ['Impressão de transfer', 'Estampa em rolo', 'Estampa localizada'],
-      imgs: ['../../assets/img1.jpeg', '../../assets/img2.jpg', '../../assets/img3.jpeg'],
+      titulo: '',
+      tiposDeServicos: [],
+      imgs: [],
       escolha: null,
     }
   };
 
   // combo-box de segmentos do formulario
-  // tslint:disable-next-line:max-line-length
-  protected segmentos = ['fantasia / brinquedos', 'sportwear / fitness', 'confecção / modinha', 'decoração', 'surf / skate', 'promocional / brindes', 'magazina / private label', 'camisa uniforme de futebol'];
+  protected segmentos = [];
 
   // titulo da parte da estampa do formulario
-  protected detalhamento = {
-    titulo: 'Detalhamento técnico da estampa',
-  };
+  protected detalhamento = '';
 
-  constructor() { }
+  constructor(private http: OrcamentoService) { }
 
   ngOnInit() {
+    this.inscricao = this.http.getOrcamentoAll().subscribe((res) => {
+      const dados = res[0];
+
+      // painel de aviso
+      this.aviso.ativo = dados.aviso.ativo;
+      this.aviso.mensagem = dados.aviso.mensagem;
+
+      // campos e detalhes do formulário de orcamento
+      this.formulario.titulo = dados.formulario.titulo;
+      this.formulario.descricao = dados.formulario.descricao;
+      this.formulario.servicos.titulo = dados.formulario.servicos.titulo;
+      this.formulario.servicos.tiposDeServicos = dados.formulario.servicos.tiposDeServicos;
+      this.formulario.servicos.imgs = dados.formulario.servicos.imagens;
+
+      // combo-box de segmentos do formulario
+      this.segmentos = dados.formulario.segmento;
+      this.detalhamento = dados.formulario.detalhamento;
+    });
+  }
+  ngOnDestroy(): void {
+    this.inscricao.unsubscribe();
   }
   tipoPessoa() {
     this.formulario.pessoa = !this.formulario.pessoa;
@@ -49,6 +70,8 @@ export class OrcamentoComponent implements OnInit {
   }
   enviaFormulario() {
     this.formulario.envio = !this.formulario.envio;
-    console.log('formulario enviado com sucesso!');
+    setTimeout(() => {
+      this.formulario.envio = !this.formulario.envio;
+    }, 7000);
   }
 }

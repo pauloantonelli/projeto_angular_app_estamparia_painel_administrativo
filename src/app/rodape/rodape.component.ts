@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EnderecoContatoAtendimentoService } from '../shared/servicos/endereco-contato-atendimento.service';
+import { ContatoService } from '../shared/services/contato/contato.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-rodape',
@@ -8,30 +9,38 @@ import { EnderecoContatoAtendimentoService } from '../shared/servicos/endereco-c
 })
 export class RodapeComponent implements OnInit {
 
-  protected telefones: string[] = [];
-  protected horario = {
-    diaDaSemana: String,
-    horario: String,
+  protected inscricao: Subscription;
+  protected telefones: [];
+  protected atendimento = {
+    diaDaSemana: '',
+    horario: '',
   };
   protected endereco = {
-    rua: String,
-    numero: Number,
-    bairro: String,
-    cep: String,
-    estado: String,
+    rua: '',
+    numero: null,
+    bairro: '',
+    cep: '',
+    estado: '',
   };
   protected redes = {
     icone: ['../assets/facebook.png', '../../assets/instagram.png'],
     link: ['https://facebook.com/pauloantonelli', 'https://instagram.com/pauloantonelli'],
   };
   protected email = false;
-  constructor(private contatoService: EnderecoContatoAtendimentoService) {
-    this.telefones = this.contatoService.getTelefones();
-    this.horario = this.contatoService.getHorario();
-    this.endereco = this.contatoService.getEndereco();
-  }
+  constructor(private http: ContatoService) {}
 
   ngOnInit() {
+    this.inscricao = this.http.getContatoAll().subscribe((res) => {
+      const dados = res[0];
+      this.telefones = dados.telefones;
+      this.atendimento.diaDaSemana = dados.atendimento.diaDaSemana;
+      this.atendimento.horario = dados.atendimento.horario;
+      this.endereco.rua = dados.endereco.rua;
+      this.endereco.numero = dados.endereco.numero;
+      this.endereco.bairro = dados.endereco.bairro;
+      this.endereco.cep = dados.endereco.cep;
+      this.endereco.estado = dados.endereco.estado;
+    });
   }
   enviarEnderecoEmailCliente() {
     this.email = !this.email;

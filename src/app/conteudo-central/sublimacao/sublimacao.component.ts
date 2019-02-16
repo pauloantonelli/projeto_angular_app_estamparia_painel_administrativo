@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SublimacaoService } from 'src/app/shared/services/sublimacao/sublimacao.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sublimacao',
@@ -6,26 +8,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sublimacao.component.scss'],
   preserveWhitespaces: true,
 })
-export class SublimacaoComponent implements OnInit {
+export class SublimacaoComponent implements OnInit, OnDestroy {
 
+  protected inscricao: Subscription;
   protected aviso = {
     ativo: false,
-    mensagem: 'Quadro de avisos',
+    mensagem: '',
   };
-  protected imgPoster = {
-    titulo: 'Sublimação',
-    img: '../../assets/img1.jpeg',
-    descricao: 'Impressão de estampas para Sublimação'
+  protected poster = {
+    titulo: '',
+    imagem: '',
+    descricao: ''
   };
   protected propaganda01 = {
-    img:  '../../assets/img1.jpeg',
-    titulo: 'Estampas para sublimação',
-    // tslint:disable-next-line:max-line-length
-    descricao: 'A arte de imprimir estampas por sublimação é um processo de transferência da imagem do papel (offset / digital) para tecidos e materiais de base sintética (poliéster/EVA etc..) ou bases mistas (poliéster/algodão). O processo é dividido em duas etapas: a impressão do papel transfer(digital ou offset) e a estamparia (prensa térmica ou um cilindro – média de 200° C) em fibras têxteis. A tinta para sublimação que está no papel transfer em seu estado sólido entra em contato com o tecido ou superfície da imagem e através do calor e pressão, evapora penetrando nas fibras e estrutura dos materiais. A transferência da estampa sublimática acontece quando a tinta contida no papel sofre a pressão e alta temperatura por 20 segundos. O resultado é expressivo, sejam em peças com bases têxteis com elevada composição de poliéster, como tecidos ou malha.'
+    imagem:  '',
+    titulo: '',
+    descricao: ''
   };
-  constructor() { }
+  constructor(private http: SublimacaoService) { }
 
   ngOnInit() {
-  }
+    this.inscricao = this.http.getSublimacaoAll().subscribe((res) => {
+      const dados = res[0];
 
+      this.aviso.ativo = dados.aviso.ativo;
+      this.aviso.mensagem = dados.aviso.mensagem;
+
+      this.poster.titulo = dados.poster.titulo;
+      this.poster.imagem = dados.poster.imagem;
+      this.poster.descricao = dados.poster.descricao;
+
+      this.propaganda01.imagem = dados.propaganda01.imagem;
+      this.propaganda01.titulo = dados.propaganda01.titulo;
+      this.propaganda01.descricao = dados.propaganda01.descricao;
+    });
+  }
+  ngOnDestroy(): void {
+    this.inscricao.unsubscribe();
+  }
 }
