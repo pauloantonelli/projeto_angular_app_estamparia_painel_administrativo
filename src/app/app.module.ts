@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ConteudoRoutingModule } from './conteudo-central/conteudo-routing.module';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +26,7 @@ import { AlinhaTituloDirective } from './shared/alinha-titulo.directive';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ConteudoRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FlexLayoutModule,
