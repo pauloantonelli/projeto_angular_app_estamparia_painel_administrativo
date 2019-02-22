@@ -1,7 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<section fxLayout="column" fxLayoutAlign="space-evenly stretch">
-  <app-menu-topo *ngIf="mobile === false"></app-menu-topo>
-  <app-menu-topo-mobile *ngIf="mobile === true"></app-menu-topo-mobile>
+<section class="container-fluid">
+  <app-menu-topo></app-menu-topo>
   <hr />
   <router-outlet></router-outlet>
   <hr />

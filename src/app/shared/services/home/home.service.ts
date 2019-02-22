@@ -13,4 +13,7 @@ export class HomeService {
   getHomeAll(): any {
     return this.http.get<HomeInterface>(this.url.baseUrl() + 'home/todos');
   }
+  setHomeAll(id: any, body: any) {
+    this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  }
 }

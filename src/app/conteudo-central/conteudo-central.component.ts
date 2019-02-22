@@ -16,11 +16,11 @@ export class ConteudoCentralComponent implements OnInit, OnDestroy {
   };
 
   // titulo e subtitulo slide
-  protected titulo = '';
-  protected subtitulo = '';
-
-  // imgs slide
-  protected imgs = [];
+  protected slides = {
+    titulo: [],
+    imgs: [],
+    subtitulo: [],
+  };
 
   // area de propaganda 01
   protected propaganda01 = {
@@ -53,16 +53,15 @@ export class ConteudoCentralComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.inscricao = this.http.getHomeAll().subscribe((res) => {
       const dados = res[0];
+      console.log(dados);
       // avisos
       this.aviso.ativo = dados.aviso.ativo;
       this.aviso.mensagem = dados.aviso.mensagem;
 
       // titulo e subtitulo slide
-      this.titulo = dados.slide.titulo;
-      this.subtitulo = dados.slide.subtitulo;
-
-      // imgs slide
-      this.imgs = dados.slide.imagens; // resolver questao xxs
+      this.slides.titulo = dados.slides.titulo;
+      this.slides.subtitulo = dados.slides.subtitulo;
+      this.slides.imgs = dados.slides.imagens;
 
       // area de propaganda 01
       this.propaganda01.img = dados.propaganda01.imagem;
@@ -84,5 +83,13 @@ export class ConteudoCentralComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.inscricao.unsubscribe();
   }
-
+  setSlide(id: any, body: any) {
+    // this.http.setHomeAll(id, body);
+    console.log(id);
+    console.log(body);
+  }
+  setPropaganda01(id: any, body: any) {
+    console.log(id);
+    console.log(body);
+  }
 }

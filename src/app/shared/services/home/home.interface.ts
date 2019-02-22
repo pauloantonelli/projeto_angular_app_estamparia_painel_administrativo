@@ -7,12 +7,12 @@ export interface HomeInterface {
             type: string,
         }
     };
-    slide: {
+    slides: {
         titulo: {
-            type: string,
+            type: any,
         },
         subtitulo: {
-            type: string,
+            type: any,
         },
         imagens: {
             type: any,
