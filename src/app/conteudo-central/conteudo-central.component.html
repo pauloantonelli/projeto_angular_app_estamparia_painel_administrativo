@@ -1,67 +1,148 @@
-<section class="container">
+<!--logo menu-->
+<section>
+    <div class="jumbotron texto-centralizado">
+      <p class="lead">
+        Link do logotipo da empresa
+      </p>
+      <hr class="my-4" />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto"
+        aria-label="Insira aqui o texto"
+        aria-describedby="button-addon2"
+        [(ngModel)]="logo.imagem"
+      />
+      <hr class="my-4" />
+      <button
+        class="btn btn-primary btn-lg"
+        type="button"
+        id="button-addon2"
+        (click)="setLogotipo(logo.id)"
+        data-toggle="modal"
+        data-target="#modalInformativo"
+      >
+        Salvar alteração
+      </button>
+        </div>
+  </section>
 
-  <h1 class="texto-centralizado">Alterar textos e imagens dos slides</h1>
-
-  <div *ngFor="let slide of slides.titulo; let i = index" class="jumbotron">
-    <h3 class="display-4 texto-centralizado">Slide {{ i + 1 }}</h3>
+<!--Avisos-->
+<section>
+  <div class="jumbotron texto-centralizado">
+    <h1 class="display-4">Painel de aviso</h1>
     <p class="lead">
-      Titulo
+      Ligando esse painel, um card irá aparecer para os clientes com o aviso que
+      for cadastrado aqui
     </p>
+    <hr class="my-4" />
+    <p>Mensagem:</p>
     <input
       type="text"
       class="form-control"
-      placeholder="Insira aqui o texto para o slide 1"
-      aria-label="Insira aqui o texto para o slide 1"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
       aria-describedby="button-addon2"
-      [(ngModel)]="slides.titulo[i]"
+      [(ngModel)]="aviso.mensagem"
     />
-    <hr class="my-4" />
-    <p>
-      Subtitulo
-    </p>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Insira aqui o texto para o slide 1"
-      aria-label="Insira aqui o texto para o slide 1"
-      aria-describedby="button-addon2"
-      [(ngModel)]="slides.subtitulo[i]"
-    />
-    <hr class="my-4" />
-    <p>
-      link imagem
-    </p>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Insira aqui o texto para o slide 1"
-      aria-label="Insira aqui o texto para o slide 1"
-      aria-describedby="button-addon2"
-      [(ngModel)]="slides.imgs[i]"
-    />
-    <hr class="my-4" />
+    <br />
     <button
-      class="btn btn-primary btn-lg"
+      (click)="setAviso(id)"
       type="button"
-      id="button-addon2"
-      (click)="setSlide($event)"
+      class="btn btn-primary"
+      [ngClass]="{
+        'btn-primary': aviso.ativo == true,
+        'btn-danger': aviso.ativo == false
+      }"
+      data-toggle="button"
+      aria-pressed="true"
+      autocomplete="off"
+      data-toggle="modal"
+      data-target="#modalInformativo"
     >
-      Salvar alterações
+      {{ textBtnAviso }}
     </button>
   </div>
-
-<br />
 </section>
 
-<!--area propaganda-->
-<section>
-
+<!--Slides-->
+<h1 class="texto-centralizado">Alterar textos e imagens dos slides</h1>
+<div
+  class="jumbotron texto-centralizado"
+  *ngFor="let titulo of slides.titulo; let i = index; trackBy: trackByIndex"
+>
+  <p>titulo do slide {{ i + 1 }}</p>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Insira o titulo do slide {{ i + 1 }}"
+    aria-label="Insira o titulo do slide"
+    aria-describedby="button-addon2"
+    [(ngModel)]="slides.titulo[i]"
+  />
+  <hr class="my-4" />
+  <p>subtitulo do slide numero {{ i + 1 }}</p>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Insira o subtitulo do slide {{ i + 1 }}"
+    aria-label="Insira o subtitulo do slide"
+    aria-describedby="button-addon2"
+    [(ngModel)]="slides.subtitulo[i]"
+  />
+  <hr class="my-4" />
+  <p>cole o link imagem do slide numero {{ i + 1 }}</p>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Cole o link da imagem do slide {{ i + 1 }} "
+    aria-label="Cole o link da imagem do slide"
+    aria-describedby="button-addon2"
+    [(ngModel)]="slides.imagens[i]"
+  />
+  <hr class="my-4" />
+  <button
+    class="btn btn-danger btn-lg"
+    type="button"
+    id="button-addon2"
+    (click)="setMenosSlides(i)"
+    data-toggle="modal"
+    data-target="#modalInformativo"
+  >
+    deletar slide numero {{ i + 1 }}
+  </button>
+</div>
+<div class="container">
+  <button
+    class="btn btn-warning btn-lg btn-block"
+    type="button"
+    id="button-addon2"
+    (click)="setMaisSlides()"
+  >
+    + mais slides
+  </button>
+</div>
+<br />
+<div class="container">
+  <button
+    class="btn btn-primary btn-lg btn-block"
+    type="button"
+    id="button-addon2"
+    (click)="setSlides(id)"
+    data-toggle="modal"
+    data-target="#modalInformativo"
+  >
+    Salvar novos slides
+  </button>
+</div>
+<hr />
+<!--propaganda 01-->
+<section class="texto-centralizado">
   <h1 class="texto-centralizado">Alterar textos e imagens da propaganda 1</h1>
 
-<section class="container">
-
-<div class="jumbotron">
-    <p class="lead">
+  <section>
+    <div class="jumbotron">
+      <p class="lead">
         Titulo
       </p>
       <input
@@ -94,48 +175,193 @@
         placeholder="Insira aqui o texto para o slide 1"
         aria-label="Insira aqui o texto para o slide 1"
         aria-describedby="button-addon2"
-        [(ngModel)]="propaganda01.img"
+        [(ngModel)]="propaganda01.imagem"
+      />
+      <hr class="my-4" />
+      <p>
+        Subtitulo
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda01.subtitulo"
+      />
+      <hr class="my-4" />
+      <p>
+        Lista de Segmentos atendidos
+      </p>
+      <input
+        *ngFor="
+          let list of propaganda01.lista;
+          let i = index;
+          trackBy: trackByIndex
+        "
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda01.lista[i]"
+      />
+      <hr class="my-4" />
+      <p>
+        Texto convidativo do botao
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda01.btnTxt"
       />
       <hr class="my-4" />
       <button
-        class="btn btn-primary btn-lg"
+        class="btn btn-primary btn-lg btn-block"
         type="button"
         id="button-addon2"
-        (click)="setPropaganda01($event)"
+        (click)="setPropaganda01(id)"
+        data-toggle="modal"
+        data-target="#modalInformativo"
       >
         Salvar alterações
       </button>
+    </div>
+  </section>
+
+  <hr />
+
+  <!--propaganda 02-->
+  <section class="texto-centralizado">
+    <h1 class="texto-centralizado">Alterar textos e imagens da propaganda 2</h1>
+
+    <div class="jumbotron">
+      <p class="lead">
+        Titulo
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda02.titulo"
+      />
+      <hr class="my-4" />
+      <p>
+        Descrição
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda02.descricao"
+      />
+      <hr class="my-4" />
+      <p>
+        link imagem
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda02.imagem"
+      />
+      <hr class="my-4" />
+      <p>
+        Subtitulo
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda02.subtitulo"
+      />
+      <hr class="my-4" />
+      <p>
+        Lista de Segmentos atendidos
+      </p>
+      <input
+        *ngFor="
+          let list of propaganda01.lista;
+          let i = index;
+          trackBy: trackByIndex
+        "
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda02.lista[i]"
+      />
+      <hr class="my-4" />
+      <p>
+        Texto convidativo do botao
+      </p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira aqui o texto para o slide 1"
+        aria-label="Insira aqui o texto para o slide 1"
+        aria-describedby="button-addon2"
+        [(ngModel)]="propaganda02.btnTxt"
+      />
+      <hr class="my-4" />
+      <button
+        class="btn btn-primary btn-lg btn-block"
+        type="button"
+        id="button-addon2"
+        (click)="setPropaganda02(id)"
+        data-toggle="modal"
+        data-target="#modalInformativo"
+      >
+        Salvar alterações
+      </button>
+    </div>
+  </section>
+</section>
+
+<!--Modal-->
+<div
+  class="modal fade"
+  id="modalInformativo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalInformativoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformativoLabel">
+          Status da atualizacao:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ status }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-
-  <h1>{{ titulo }}</h1>
-  <h2>{{ subtitulo }}</h2>
-</section>
-<section fxLayout="row">
-  <img src="{{ propaganda01.img }}" alt="sublimação" style="width:100%" />
-  <h3>{{ propaganda01.titulo }}</h3>
-  <p>{{ propaganda01.descricao }}</p>
-  <article>
-    <h3>{{ propaganda02.titulo }}</h3>
-    <ul>
-      <li *ngFor="let item of propaganda02.lista">{{ item }}</li>
-    </ul>
-  </article>
-  <button>{{ propaganda02.btnTxt }}</button>
-</section>
-
-<hr />
-
-<section fxLayout="row">
-  <img src="{{ propaganda03.img }}" alt="sublimação" style="width:100%" />
-  <h3>{{ propaganda03.titulo }}</h3>
-  <p>{{ propaganda03.descricao }}</p>
-  <article>
-    <h3>{{ propaganda04.titulo }}</h3>
-    <ul>
-      <li *ngFor="let item of propaganda04.lista">{{ item }}</li>
-    </ul>
-  </article>
-  <button>{{ propaganda04.btnTxt }}</button>
-</section>
-
-<hr />

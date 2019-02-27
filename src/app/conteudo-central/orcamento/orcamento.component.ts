@@ -10,68 +10,153 @@ import { Subscription } from 'rxjs';
 export class OrcamentoComponent implements OnInit, OnDestroy {
 
   protected inscricao: Subscription;
-  // painel de aviso
-  protected aviso = {
-    ativo: null,
-    mensagem: '',
-  };
+  protected status: string;
+  protected id: string;
 
-  // campos e detalhes do formulário de orcamento
+  protected aviso = {
+      ativo: null,
+      mensagem: '',
+    };
   protected formulario = {
     titulo: '',
     descricao: '',
-    pessoa: true,
-    envio: false,
     servicos: {
+        titulo: '',
+        tiposDeServicos: [],
+        imagens: [],
+      }
+    };
+    protected segmentos = [];
+    protected pedidoMinimo = null;
+    protected mensagemDeSucesso = {
       titulo: '',
-      tiposDeServicos: [],
-      imgs: [],
-      escolha: null,
-    }
-  };
+      subtitulo: '',
+    };
 
-  // combo-box de segmentos do formulario
-  protected segmentos = [];
-
-  // titulo da parte da estampa do formulario
-  protected detalhamento = '';
+  protected textBtnAviso: string;
 
   constructor(private http: OrcamentoService) { }
 
   ngOnInit() {
     this.inscricao = this.http.getOrcamentoAll().subscribe((res) => {
       const dados = res[0];
+      this.id = dados._id;
 
       // painel de aviso
       this.aviso.ativo = dados.aviso.ativo;
       this.aviso.mensagem = dados.aviso.mensagem;
+      this.setTextBtnAtivo();
 
       // campos e detalhes do formulário de orcamento
       this.formulario.titulo = dados.formulario.titulo;
       this.formulario.descricao = dados.formulario.descricao;
       this.formulario.servicos.titulo = dados.formulario.servicos.titulo;
       this.formulario.servicos.tiposDeServicos = dados.formulario.servicos.tiposDeServicos;
-      this.formulario.servicos.imgs = dados.formulario.servicos.imagens;
+      this.formulario.servicos.imagens = dados.formulario.servicos.imagens;
 
       // combo-box de segmentos do formulario
-      this.segmentos = dados.formulario.segmento;
-      this.detalhamento = dados.formulario.detalhamento;
+      this.segmentos = dados.segmento;
+      this.pedidoMinimo = dados.pedidoMinimo;
+
+      // mensagem de sucesso formulario
+      this.mensagemDeSucesso.titulo = dados.mensagemDeSucesso.titulo;
+      this.mensagemDeSucesso.subtitulo = dados.mensagemDeSucesso.subtitulo;
     });
   }
   ngOnDestroy(): void {
     this.inscricao.unsubscribe();
   }
-  tipoPessoa() {
-    this.formulario.pessoa = !this.formulario.pessoa;
+
+  setAviso(id: string) {
+    this.aviso.ativo = !this.aviso.ativo;
+    const docs = { aviso: this.aviso };
+
+    this.inscricao = this.http.setOrcamentoAviso(id, docs).subscribe(
+      (response) => {
+        this.status = 'Aviso atualizado com sucesso!';
+        this.setTextBtnAtivo();
+      },
+      (erro) => {
+        this.status = 'Erro ao atualizar, verifique sua conexão com a internet e tente novamente';
+      },
+      () => {
+        console.log('Contato atualizado e encerrado com sucesso');
+      }
+    );
   }
-  escolhaDoServico(id: number) {
-    this.formulario.servicos.escolha = id;
-    console.log(this.formulario.servicos.escolha);
+  setTextBtnAtivo() {
+    if (this.aviso.ativo === true) {
+      this.textBtnAviso = 'Painel Ativo';
+    } else {
+      this.textBtnAviso = 'Painel Inativo';
+    }
   }
-  enviaFormulario() {
-    this.formulario.envio = !this.formulario.envio;
-    setTimeout(() => {
-      this.formulario.envio = !this.formulario.envio;
-    }, 7000);
+
+  setFormulario(id: string) {
+    const docs = { formulario: this.formulario };
+
+    this.inscricao = this.http.setFormulario(id, docs).subscribe(
+      (response) => {
+        this.status = 'Campos do formulario atualizados com sucesso!';
+      },
+      (erro) => {
+        this.status = 'Erro ao atualizar, verifique sua conexão com a internet e tente novamente';
+      },
+      () => {
+        console.log('Segmentos atualizados e encerrados com sucesso');
+      }
+    );
+  }
+  // retorna o indice de cada elemento para o [(ngModel)]
+  trackByIndex(index: number): any {
+    return index;
+  }
+
+  setSegmentos(id: string) {
+    const docs = { segmento: this.segmentos };
+
+    this.inscricao = this.http.setSegmentos(id, docs).subscribe(
+      (response) => {
+        this.status = 'Segmentos atualizados com sucesso!';
+      },
+      (erro) => {
+        this.status = 'Erro ao atualizar, verifique sua conexão com a internet e tente novamente';
+      },
+      () => {
+        console.log('Segmentos atualizados e encerrados com sucesso');
+      }
+    );
+  }
+
+  setPedidoMinimo(id: string) {
+    const docs = { pedidoMinimo: this.pedidoMinimo };
+
+    this.inscricao = this.http.setPedidoMinimo(id, docs).subscribe(
+      (response) => {
+        this.status = 'Numero de pedido mínimo atualizado com sucesso!';
+      },
+      (erro) => {
+        this.status = 'Erro ao atualizar, verifique sua conexão com a internet e tente novamente';
+      },
+      () => {
+        console.log('Segmentos atualizados e encerrados com sucesso');
+      }
+    );
+  }
+
+  setMensagemSucessoPedidoOrcamento(id: string) {
+    const docs = { mensagemDeSucesso: this.mensagemDeSucesso };
+
+    this.inscricao = this.http.setMensagemSucessoPedidoOrcamento(id, docs).subscribe(
+      (response) => {
+        this.status = 'Mensagem de sucesso atualizada! Seus clientes vão gostar!';
+      },
+      (erro) => {
+        this.status = 'Erro ao atualizar, verifique sua conexão com a internet e tente novamente';
+      },
+      () => {
+        console.log('Segmentos atualizados e encerrados com sucesso');
+      }
+    );
   }
 }

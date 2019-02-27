@@ -1,52 +1,160 @@
 <section>
-  <h1>Fale Conosco</h1>
-  <h2>Deixe sua mensagem</h2>
+  <!--Avisos-->
+  <div class="jumbotron texto-centralizado">
+    <h1 class="display-4">
+      Alterar os dados de contato e atendimento da empresa
+    </h1>
 
-  <br />
+    <hr class="my-4" />
+    <p>telefones de contato da empresa</p>
+    <input
+      *ngFor="let telefone of contato.telefones;
+      let i = index;
+      trackBy: trackByIndex"
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.telefones[i]"
+    />
 
-  <form>
-    <input type="text" placeholder="Nome" required />
-    <input type="email" placeholder="Email de contato" required />
-    <p>Pessoa Fisica</p>
-    <input type="number" placeholder="CPF" />
-    <p>Pessoa Jurídica</p>
-    <input type="number" placeholder="CNPJ" />
-    <textarea placeholder="Mande sua mensagem para nosso email"></textarea>
+    <hr class="my-4" />
+    <p>horários de atendimento da empresa</p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.atendimento.diaDaSemana"
+    />
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.atendimento.horario"
+    />
 
-    <br />
-
-    <button>Enviar Mensagem</button>
-  </form>
+    <hr class="my-4" />
+    <p>endereço da empresa</p>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Rua</span>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Insira aqui o texto"
+          aria-label="Rua"
+          aria-describedby="button-addon2"
+          [(ngModel)]="contato.endereco.rua"
+        />
+      </div>
+    <hr class="my-4" />
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Numero</span>
+        </div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Numero"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.endereco.numero"
+    />
+    </div>
+    <hr class="my-4" />
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Bairro</span>
+        </div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Bairro"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.endereco.bairro"
+    />
+    </div>
+    <hr class="my-4" />
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">CEP</span>
+        </div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="CEP"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.endereco.cep"
+    />
+    </div>
+    <hr class="my-4" />
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Estado</span>
+        </div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Estado"
+      aria-describedby="button-addon2"
+      [(ngModel)]="contato.endereco.estado"
+    />
+    </div>
+    <hr class="my-4" />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setContato(id)"
+      data-toggle="modal"
+      data-target="#modalInformativo"
+    >
+      Salvar alterações
+    </button>
+  </div>
 </section>
 
-<br />
-
-<section>
-  <h3>Telefones de contato</h3>
-  <p *ngFor="let telefone of telefones" type="tel">{{ telefone }}</p>
-</section>
-
-<br />
-
-<section>
-  <h3>Horário de funcionamento</h3>
-  <p type="text">{{ atendimento.diaDaSemana }}</p>
-  <p type="text">{{ atendimento.horario }}</p>
-</section>
-
-<br />
-
-<section>
-  <h3>Endereço</h3>
-  <p type="text">{{ endereco.rua }}</p>
-  <p type="text">Número {{ endereco.numero }}</p>
-  <p type="text">{{ endereco.bairro }}</p>
-  <p type="text">{{ endereco.cep }}</p>
-  <p type="text">{{ endereco.estado }}</p>
-</section>
-
-<br />
-
-<section>
-  <iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.006362337198!2d-46.76975134888082!3d-23.604104768983305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5447f9873843%3A0x66e114df6c685ff4!2sR.+Vit%C3%B3rio+D&#39;amico+-+Jardim+Monte+Alegre%2C+Tabo%C3%A3o+da+Serra+-+SP%2C+05576-100!5e0!3m2!1spt-BR!2sbr!4v1550127533329" frameborder="0" style="border:0" allowfullscreen></iframe>
-</section>
+<!--Modal-->
+<div
+  class="modal fade"
+  id="modalInformativo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalInformativoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformativoLabel">
+          Status da atualizacao:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ status }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

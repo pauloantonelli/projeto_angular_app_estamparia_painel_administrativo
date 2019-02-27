@@ -13,4 +13,7 @@ export class ContatoService {
   getContatoAll() {
     return this.http.get<ContatoInterface>(this.url.baseUrl() + '/contato/todos');
   }
+  setContatoAll(id: string, body: any): any {
+    return this.http.put<ContatoInterface>(this.url.baseUrl() + 'contato/editar/' + id, body);
+  }
 }

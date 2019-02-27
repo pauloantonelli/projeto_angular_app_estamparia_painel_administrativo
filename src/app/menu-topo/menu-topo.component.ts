@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
 export class MenuTopoComponent implements OnInit, OnDestroy {
 
   protected inscricao: Subscription;
-  protected logo = '../../assets/logo.png';
+  protected logo = '';
   protected menus = {
-    botoes: ['home', 'sublimacao', 'orcamento', 'contato'],
+    botoes: ['home', 'sublimacao', 'orcamento', 'contato', 'portifolio', 'pre rodape', 'rodape', 'emails'],
   };
 
   constructor(private http: MenuService) { }
@@ -20,7 +20,7 @@ export class MenuTopoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.inscricao = this.http.getMenuAll().subscribe((res) => {
       const dados = res[0];
-      this.logo = dados.logo;
+      this.logo = dados.logo.imagem;
     });
   }
   ngOnDestroy(): void {

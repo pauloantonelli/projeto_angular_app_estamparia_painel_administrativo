@@ -1,20 +1,184 @@
-<section fxLayout="row" class="slideshow-container">
-  <!--Avisos-->
-  <section *ngIf="aviso.ativo === true">
-    <p>{{ aviso.mensagem }}</p>
-  </section>
-
-  <!--imagem principal-->
-  <div class="mySlides fade">
-    <h1 class="numbertext">{{ poster.titulo }}</h1>
-    <img src="{{ poster.imagem }}" width="100%" />
-    <h2 class="text">{{ poster.descricao }}</h2>
+<!--Avisos-->
+<section>
+  <div class="jumbotron texto-centralizado">
+    <h1 class="display-4">Painel de aviso</h1>
+    <p class="lead">
+      Ligando esse painel, um card irá aparecer para os clientes com o aviso que
+      for cadastrado aqui
+    </p>
+    <hr class="my-4" />
+    <p>Mensagem:</p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="aviso.mensagem"
+    />
+    <br />
+    <button
+      (click)="setAviso(id)"
+      type="button"
+      class="btn btn-primary"
+      [ngClass]="{
+        'btn-primary': aviso.ativo == true,
+        'btn-danger': aviso.ativo == false
+      }"
+      data-toggle="button"
+      aria-pressed="true"
+      autocomplete="off"
+      data-toggle="modal"
+      data-target="#modalInformativo"
+    >
+      {{ textBtnAviso }}
+    </button>
+    <hr class="my-4" />
   </div>
 </section>
-<br />
-<!--propaganda 01-->
-<section>
-  <img src="{{ propaganda01.imagem }}" alt="propaganda-imagem" width="50%"/>
-  <h3>{{ propaganda01.titulo }}</h3>
-  <p>{{ propaganda01.descricao }}</p>
+
+<!--poster-->
+<section class="texto-centralizado">
+  <div class="jumbotron">
+    <h3 class="display-4">
+      Alterar texto e a imagem poster da sublimação
+    </h3>
+    <p class="lead">
+      Titulo
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="poster.titulo"
+    />
+    <hr class="my-4" />
+    <p>
+      Subtitulo
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="poster.descricao"
+    />
+    <hr class="my-4" />
+    <p>
+      link imagem
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o link da imagem"
+      aria-label="Insira aqui o link da imagem"
+      aria-describedby="button-addon2"
+      [(ngModel)]="poster.imagem"
+    />
+    <hr class="my-4" />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setPoster(id)"
+      data-toggle="modal"
+      data-target="#modalInformativo"
+    >
+      Salvar alterações
+    </button>
+    <hr class="my-4" />
+  </div>
+
+  <!--propaganda 01-->
+  <div class="jumbotron">
+    <h3 class="display-4">
+      Alterar texto e a imagem de propaganda da sublimacao
+    </h3>
+    <p class="lead">
+      Titulo
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="propaganda01.titulo"
+    />
+    <hr class="my-4" />
+    <p>
+      Subtitulo
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="propaganda01.descricao"
+    />
+    <hr class="my-4" />
+    <p>
+      link imagem
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o link da imagem"
+      aria-label="Insira aqui o link da imagem"
+      aria-describedby="button-addon2"
+      [(ngModel)]="propaganda01.imagem"
+    />
+    <hr class="my-4" />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setPropaganda01(id)"
+      data-toggle="modal"
+      data-target="#modalInformativo"
+    >
+      Salvar alterações
+    </button>
+    <hr class="my-4" />
+  </div>
 </section>
+
+<!--Modal-->
+<div
+  class="modal fade"
+  id="modalInformativo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalInformativoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformativoLabel">
+          Status da atualizacao:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ status }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,37 +9,71 @@ import { Subscription } from 'rxjs';
 })
 export class ContatoComponent implements OnInit, OnDestroy {
 
-  protected incricao: Subscription;
-  protected telefones: [];
-  protected atendimento = {
-    diaDaSemana: '',
-    horario: '',
-  };
-  protected endereco = {
-    rua: '',
-    numero: null,
-    bairro: '',
-    cep: '',
-    estado: '',
+  protected inscricao: Subscription;
+  protected id: string;
+  protected status: string;
+  protected contato = {
+    telefones: [],
+    atendimento: {
+      diaDaSemana: '',
+      horario: '',
+    },
+    endereco: {
+      rua: '',
+      numero: null,
+      bairro: '',
+      cep: '',
+      estado: '',
+    }
   };
 
   constructor(private http: ContatoService) {
   }
 
   ngOnInit() {
-    this.incricao = this.http.getContatoAll().subscribe((res) => {
-      const dados = res[0];
-      this.telefones = dados.telefones;
-      this.atendimento.diaDaSemana = dados.atendimento.diaDaSemana;
-      this.atendimento.horario = dados.atendimento.horario;
-      this.endereco.rua = dados.endereco.rua;
-      this.endereco.numero = dados.endereco.numero;
-      this.endereco.bairro = dados.endereco.bairro;
-      this.endereco.cep = dados.endereco.cep;
-      this.endereco.estado = dados.endereco.estado;
-    });
+    this.inscricao = this.http.getContatoAll().subscribe(
+      (res) => {
+        const dados = res[0];
+
+        this.id = dados._id;
+
+        this.contato.telefones = dados.telefones;
+
+        this.contato.atendimento.diaDaSemana = dados.atendimento.diaDaSemana;
+        this.contato.atendimento.horario = dados.atendimento.horario;
+        this.contato.endereco.rua = dados.endereco.rua;
+        this.contato.endereco.numero = dados.endereco.numero;
+        this.contato.endereco.bairro = dados.endereco.bairro;
+        this.contato.endereco.cep = dados.endereco.cep;
+        this.contato.endereco.estado = dados.endereco.estado;
+
+        console.log('Contato carregado com sucesso!');
+      },
+      (erro) => {
+        console.log('Contato carregado com sucesso!');
+      },
+      () => {
+        console.log('Acesso completo ao Contato, atualizado e encerrado com sucesso');
+      }
+    );
   }
   ngOnDestroy(): void {
-    this.incricao.unsubscribe();
+    this.inscricao.unsubscribe();
+  }
+  trackByIndex(index: number): any {
+    return index;
+  }
+  setContato(id: string) {
+    this.inscricao = this.http.setContatoAll(id, this.contato).subscribe(
+      (response) => {
+        this.status = 'Dados atualizados com sucesso!';
+      },
+      (erro) => {
+        this.status = 'Erro ao atualizar, verifique sua conexão com a internet e tente novamente';
+      },
+      () => {
+        console.log('Contato atualizado e encerrado com sucesso');
+      }
+    );
   }
 }

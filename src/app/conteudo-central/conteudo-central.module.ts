@@ -7,13 +7,15 @@ import { ContatoComponent } from './contato/contato.component';
 import { OrcamentoComponent } from './orcamento/orcamento.component';
 import { SublimacaoComponent } from './sublimacao/sublimacao.component';
 import { RouterModule } from '@angular/router';
+import { EmailsCadastradosComponent } from './emails-cadastrados/emails-cadastrados.component';
 
 @NgModule({
   declarations: [
     ConteudoCentralComponent,
     ContatoComponent,
     OrcamentoComponent,
-    SublimacaoComponent
+    SublimacaoComponent,
+    EmailsCadastradosComponent
   ],
   imports: [
     CommonModule,

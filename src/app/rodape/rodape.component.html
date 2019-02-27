@@ -1,42 +1,138 @@
+<!--newsletter-->
 <section>
-  <h1>Telefone</h1>
-  <p *ngFor="let telefone of telefones">{{ telefone }}</p>
-</section>
-
-<section>
-  <h2>Horário de Atendimento</h2>
-  <h3>{{ atendimento.diaDaSemana }}</h3>
-  <p>{{ atendimento.horario }}</p>
-</section>
-
-<footer>
-  <section>
-    <h2>{{ endereco.rua }} numero {{ endereco.numero }}, bairro {{ endereco.bairro }}, estado {{ endereco.estado }}, CEP: {{ endereco.cep }}</h2>
-    <a
-      *ngFor="let icone of redes.link; let i = index"
-      href="{{ redes.link[i] }}"
-      target="_blank"
+  <div class="jumbotron texto-centralizado">
+    <h3 class="display-4 texto-centralizado">
+      Alterar texto e a imagem poster da sublimação
+    </h3>
+    <div class="lead">
+      <p>Titulo</p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira ou colque aqui"
+        aria-label="Insira ou colque aqui"
+        aria-describedby="button-addon2"
+        [(ngModel)]="rodape.titulo"
+      />
+    </div>
+    <hr class="my-4" />
+    <div class="lead">
+        <p>Descrição</p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira ou colque aqui"
+        aria-label="Insira ou colque aqui"
+        aria-describedby="button-addon2"
+        [(ngModel)]="rodape.subtitulo"
+      />
+    </div>
+    <hr class="my-4" />
+    <div class="lead">
+        <p>Texto do botão do rodapé</p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira ou colque aqui"
+        aria-label="Insira ou colque aqui"
+        aria-describedby="button-addon2"
+        [(ngModel)]="rodape.btnTxt"
+      />
+    </div>
+    <hr class="my-4" />
+    <div class="lead">
+        <p>Mensagem de sucesso ao cliente quando ele deixar seu email para contato</p>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira ou colque aqui"
+        aria-label="Insira ou colque aqui"
+        aria-describedby="button-addon2"
+        [(ngModel)]="rodape.sucesso"
+      />
+    </div>
+    <hr class="my-4" />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setRodapeTituloSubtitulo(id)"
+      data-toggle="modal"
+      data-target="#modalInformativo"
     >
-      <img src="{{ redes.icone[i] }}" alt="redes-sociais" />
-    </a>
-  </section>
-
-  <section>
-    <h2>Receba promoções e dicas</h2>
-    <p>
-      Cadastre o seu email e receba a newsletter da equipe Dharma, tendências de
-      estampas, dicas sobre sublimação e muito mais!
-    </p>
-    <input type="email" />
-    <button (click)="enviarEnderecoEmailCliente()">
-      Receber as promoções
+      Salvar alterações
     </button>
-  </section>
+  </div>
+</section>
 
-  <section *ngIf="email === true">
-    <p>
-      Cadastro feito com sucesso! Em breve voce receberá novas promoções! Fique
-      ligado ;)
-    </p>
-  </section>
-</footer>
+<!--redes sociais-->
+<section>
+  <div class="jumbotron texto-centralizado">
+    <h3 class="display-4 texto-centralizado">
+      Alterar link das redes sociais da empresa
+    </h3>
+    <div
+      *ngFor="let link of redesSociais.titulo; let i = index"
+      class="input-group"
+    >
+      <div class="input-group-prepend">
+        <span class="input-group-text">{{ link }}</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira ou colque aqui"
+        aria-label="Insira ou colque aqui"
+        aria-describedby="button-addon2"
+        [(ngModel)]="redesSociais.links[i]"
+      />
+    </div>
+    <hr class="my-4" />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setRodapeLinksRedesSociais(id)"
+      data-toggle="modal"
+      data-target="#modalInformativo"
+    >
+      Salvar alterações
+    </button>
+  </div>
+</section>
+
+<!--Modal-->
+<div
+  class="modal fade"
+  id="modalInformativo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalInformativoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformativoLabel">
+          Status da atualizacao:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ status }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@ import { AlinhaTituloDirective } from './shared/alinha-titulo.directive';
 @NgModule({
   declarations: [
     AppComponent,
-    AlinhaTituloDirective
+    AlinhaTituloDirective,
   ],
   imports: [
     BrowserModule,

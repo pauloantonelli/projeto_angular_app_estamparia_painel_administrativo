@@ -10,7 +10,10 @@ import { MenuInterface } from './menu.interface';
 export class MenuService {
 
   constructor(private url: BaseUrlService, private http: HttpClient) { }
-  getMenuAll() {
-    return this.http.get<MenuInterface>(this.url.baseUrl() + '/menu/todos');
+  getMenuAll(): any {
+    return this.http.get<MenuInterface>(this.url.baseUrl() + 'menu/todos');
+  }
+  setMenuAll(id: string, body: any): any {
+    return this.http.put<MenuInterface>(this.url.baseUrl() + 'menu/editar/' + id, body);
   }
 }

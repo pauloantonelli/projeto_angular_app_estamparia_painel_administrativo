@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RodapeComponent } from './rodape.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { RodapeComponent } from './rodape.component';
   ],
   imports: [
     CommonModule,
+    FormsModule
   ],
   exports: [
     RodapeComponent

@@ -1,9 +1,116 @@
+<!--portifolio-->
 <section>
-    <h1>CLIENTES</h1>
-    <h2>A melhor forma de conhecer a qualidade dos nossos serviços
-        é através daqueles com quem trabalhamos.</h2>
-  </section>
-
-  <section>
-    <img *ngFor="let img of slide" src="{{ img }}" alt="slide-clientes" width="20%"/>
+  <!--poster-->
+  <div class="jumbotron texto-centralizado">
+    <h3 class="display-4 texto-centralizado">
+      Alterar os textos e as imagens do portilofio da empresa
+    </h3>
+    <p class="lead">
+      Titulo
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="portifolio.titulo"
+    />
+    <hr class="my-4" />
+    <p>
+      Subtitulo
+    </p>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Insira aqui o texto"
+      aria-label="Insira aqui o texto"
+      aria-describedby="button-addon2"
+      [(ngModel)]="portifolio.subtitulo"
+    />
+    <hr class="my-4" />
+    <p>
+      links das imagens
+    </p>
+    <div
+      class="input-group mb-3"
+      *ngFor="let imagem of portifolio.imagens;
+      let i = index;
+      trackBy: trackByIndex"
+    >
+      <div
+        (click)="setMenosImagens(i)"
+        data-toggle="modal"
+        data-target="#modalInformativo"
+        class="input-group-prepend"
+        style="cursor: pointer"
+      >
+        <span class="input-group-text" id="basic-addon1">Deletar</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Insira o link da imagem nova aqui"
+        aria-label="Insira o link da imagem nova aqui"
+        aria-describedby="button-addon2"
+        [(ngModel)]="portifolio.imagens[i]"
+      />
+    </div>
+    <br />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setMaisImagens()"
+    >
+      + mais imagens
+    </button>
+    <hr class="my-4" />
+    <button
+      class="btn btn-primary btn-lg"
+      type="button"
+      id="button-addon2"
+      (click)="setPortifolio()"
+      data-toggle="modal"
+      data-target="#modalInformativo"
+    >
+      Salvar alterações
+    </button>
+  </div>
 </section>
+
+<!--Modal-->
+<div
+  class="modal fade"
+  id="modalInformativo"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalInformativoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformativoLabel">
+          Status da atualizacao:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ status }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

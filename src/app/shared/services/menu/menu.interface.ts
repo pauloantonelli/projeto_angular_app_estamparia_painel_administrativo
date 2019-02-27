@@ -1,3 +1,5 @@
 export interface MenuInterface {
-  logo: string;
+  logo: {
+    imagem: string,
+  };
 }

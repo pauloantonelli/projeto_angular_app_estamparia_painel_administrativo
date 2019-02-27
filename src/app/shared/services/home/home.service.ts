@@ -13,7 +13,22 @@ export class HomeService {
   getHomeAll(): any {
     return this.http.get<HomeInterface>(this.url.baseUrl() + 'home/todos');
   }
-  setHomeAll(id: any, body: any) {
-    this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  setHomeAviso(id: any, body: any): any {
+    return this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  }
+  setHomeTitulo(id: any, body: any): any {
+    return this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  }
+  setHomeSubtitulo(id: any, body: any): any {
+    return this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  }
+  setHomeSlides(id: any, body: any): any {
+    return this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  }
+  setHomePropaganda01(id: any, body: any): any {
+    return this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
+  }
+  setHomePropaganda02(id: any, body: any): any {
+    return this.http.put<HomeInterface>(this.url.baseUrl() + 'home/editar/' + id, body);
   }
 }
