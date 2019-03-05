@@ -24,12 +24,12 @@ export class SublimacaoComponent implements OnInit, OnDestroy {
   protected poster = {
     titulo: '',
     imagem: '',
-    descricao: ''
+    descricao: '',
   };
-  protected propaganda01 = {
-    titulo: '',
-    imagem:  '',
-    descricao: ''
+  protected propaganda = {
+    titulo: [],
+    imagem:  [],
+    descricao: [],
   };
   constructor(private http: SublimacaoService) { }
 
@@ -49,14 +49,17 @@ export class SublimacaoComponent implements OnInit, OnDestroy {
       this.poster.imagem = dados.poster.imagem;
       this.poster.descricao = dados.poster.descricao;
 
-      // propaganda 01
-      this.propaganda01.imagem = dados.propaganda01.imagem;
-      this.propaganda01.titulo = dados.propaganda01.titulo;
-      this.propaganda01.descricao = dados.propaganda01.descricao;
+      // propaganda
+      this.propaganda.imagem = dados.propaganda.imagem;
+      this.propaganda.titulo = dados.propaganda.titulo;
+      this.propaganda.descricao = dados.propaganda.descricao;
     });
   }
   ngOnDestroy(): void {
     this.inscricao.unsubscribe();
+  }
+  trackByIndex(indice: number): any {
+    return indice;
   }
   setAviso(id: string) {
     this.aviso.ativo = !this.aviso.ativo;
@@ -97,8 +100,18 @@ export class SublimacaoComponent implements OnInit, OnDestroy {
       }
     );
   }
-  setPropaganda01(id: string) {
-    const docs = { propaganda01: this.propaganda01 };
+  maisPropaganda() {
+    this.propaganda.titulo.push('');
+    this.propaganda.descricao.push('');
+    this.propaganda.imagem.push('');
+  }
+  menosPropaganda(posicao) {
+    this.propaganda.titulo.splice(posicao, 1);
+    this.propaganda.descricao.splice(posicao, 1);
+    this.propaganda.imagem.splice(posicao, 1);
+  }
+  setPropaganda(id: string) {
+    const docs = { propaganda: this.propaganda };
 
     this.inscricao = this.http.setSublimacaoPropaganda01(id, docs).subscribe(
       (response) => {

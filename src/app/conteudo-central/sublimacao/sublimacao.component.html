@@ -39,7 +39,9 @@
 
 <!--poster-->
 <section class="texto-centralizado">
-  <div class="jumbotron">
+  <div
+    class="jumbotron"
+  >
     <h3 class="display-4">
       Alterar texto e a imagem poster da sublimação
     </h3>
@@ -92,10 +94,14 @@
     <hr class="my-4" />
   </div>
 
-  <!--propaganda 01-->
-  <div class="jumbotron">
+  <!--propaganda-->
+  <div
+    *ngFor="let prop of propaganda.titulo;
+    let i = index;
+    trackBy: trackByIndex"
+    class="jumbotron">
     <h3 class="display-4">
-      Alterar texto e a imagem de propaganda da sublimacao
+      Alterar texto e a imagem de propaganda {{ i + 1 }} da sublimacao
     </h3>
     <p class="lead">
       Titulo
@@ -106,7 +112,7 @@
       placeholder="Insira aqui o texto"
       aria-label="Insira aqui o texto"
       aria-describedby="button-addon2"
-      [(ngModel)]="propaganda01.titulo"
+      [(ngModel)]="propaganda.titulo[i]"
     />
     <hr class="my-4" />
     <p>
@@ -118,7 +124,7 @@
       placeholder="Insira aqui o texto"
       aria-label="Insira aqui o texto"
       aria-describedby="button-addon2"
-      [(ngModel)]="propaganda01.descricao"
+      [(ngModel)]="propaganda.descricao[i]"
     />
     <hr class="my-4" />
     <p>
@@ -130,21 +136,37 @@
       placeholder="Insira aqui o link da imagem"
       aria-label="Insira aqui o link da imagem"
       aria-describedby="button-addon2"
-      [(ngModel)]="propaganda01.imagem"
+      [(ngModel)]="propaganda.imagem[i]"
     />
     <hr class="my-4" />
     <button
-      class="btn btn-primary btn-lg"
-      type="button"
-      id="button-addon2"
-      (click)="setPropaganda01(id)"
-      data-toggle="modal"
-      data-target="#modalInformativo"
-    >
-      Salvar alterações
-    </button>
-    <hr class="my-4" />
+    class="btn btn-danger btn-lg"
+    type="button"
+    id="button-addon2"
+    (click)="menosPropaganda(i)"
+  >
+    Deletar a propaganda {{ i + 1 }}
+  </button>
   </div>
+
+  <button
+  class="btn btn-warning btn-lg"
+  type="button"
+  id="button-addon2"
+  (click)="maisPropaganda()"
+>
+  + Propaganda
+</button>
+<button
+  class="btn btn-primary btn-lg"
+  type="button"
+  id="button-addon2"
+  (click)="setPropaganda(id)"
+  data-toggle="modal"
+  data-target="#modalInformativo"
+>
+  Salvar alterações
+</button>
 </section>
 
 <!--Modal-->

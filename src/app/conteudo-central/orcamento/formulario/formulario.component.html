@@ -1,0 +1,183 @@
+<section *ngIf="carregando == true" class=".jumbotron texto-centralizado">
+  <h1 class="display-4">Pedidos dos clientes em ordem de recebimento</h1>
+  <p class="lead">
+    Entre em contato com o orçamento o quanto antes!
+  </p>
+  <div
+    *ngFor="let pedido of formularioCliente; let i = index; trackBy: trackByIndex"
+    class="input-group flex-wrap"
+  >
+    <div class="jumbotron">
+      <h1 class="display-4">Nome: {{ pedido.formularioCliente.nome }}</h1>
+      <p *ngIf="pedido.email !== ''" class="lead">
+          Email de contato:
+          <br/>
+          <a
+          class="btn btn-primary btn-lg"
+          href="mailto: {{ pedido.formularioCliente.email }}"
+          target="_blank"
+          role="button"
+          aria-label="emailsCadastrados"
+          aria-describedby="addon-wrapping"
+          >{{ pedido.formularioCliente.email }}</a
+        >
+      </p>
+      <p *ngIf="pedido.formularioCliente.celular[i]" class="lead">
+          Celular:
+          <br/>
+          <a
+          class="btn btn-primary btn-lg"
+          href="tel: {{ pedido.formularioCliente.celular[i] }}"
+          role="button"
+          aria-label="emailsCadastrados"
+          aria-describedby="addon-wrapping"
+          >{{ pedido.formularioCliente.celular[i] }}</a
+        >
+      </p>
+      <p *ngIf="pedido.formularioCliente.telefoneFixo[i]" class="lead">
+          Fixo:
+          <br/>
+          <a
+          class="btn btn-primary btn-lg"
+          href="tel: {{ pedido.formularioCliente.telefoneFixo[i] }}"
+          role="button"
+          >{{ pedido.formularioCliente.telefoneFixo[i] }}</a
+        >
+      </p>
+      <p class="lead">Empresa: {{ pedido.formularioCliente.empresa }}</p>
+      <p class="lead">
+        Tipo de pessoa: {{ pedido.formularioCliente.tipoPessoa.tipo }}
+      </p>
+      <p class="lead">
+        Numero do {{ pedido.formularioCliente.tipoPessoa.tipo }}:
+        {{ pedido.formularioCliente.tipoPessoa.numero }}
+      </p>
+      <p class="lead">Segmento: {{ pedido.formularioCliente.segmento }}</p>
+      <p class="lead">
+        Serviço Escolhido: {{ pedido.formularioCliente.servicoEscolhido }}
+      </p>
+
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Detalhes técnicos do orcamento</h1>
+          <p class="lead">
+            Largura: {{ pedido.formularioCliente.detalhamento.largura }}
+          </p>
+          <p class="lead">
+            Altura: {{ pedido.formularioCliente.detalhamento.altura }}
+          </p>
+          <p class="lead">
+            Quantidade: {{ pedido.formularioCliente.detalhamento.quantidade }}
+          </p>
+          <p class="lead">
+            Cor: {{ pedido.formularioCliente.detalhamento.cor }}
+          </p>
+          <p class="lead">
+            Mensagem: {{ pedido.formularioCliente.detalhamento.mensagem }}
+          </p>
+          <p class="lead">Referencia:</p>
+          <img
+            src="{{ pedido.formularioCliente.detalhamento.anexo }}"
+            alt="anexo cliente"
+            width="100%"
+          />
+        </div>
+      </div>
+      <button
+        (click)="setDeletePedido(pedido._id, i)"
+        style="cursor: pointer"
+        class="btn btn-danger btn-lg"
+        id="addon-wrapping"
+        data-toggle="modal"
+        data-target="#pedidoCadastradosModalDelete"
+      >
+        Deletar pedido
+      </button>
+    </div>
+  </div>
+
+  <hr class="my-4" />
+
+  <!--Paginação de resultados-->
+  <nav aria-label="paginacaoEmailClientes">
+    <ul class="pagination">
+      <li class="page-item col" style="padding: 0">
+        <a
+          (click)="trocarDePaginaAnterior()"
+          style="cursor: pointer"
+          class="page-link"
+          >Anterior</a
+        >
+      </li>
+      <li
+        *ngFor="let pagina of paginas; let i = index"
+        class="page-item col"
+        [class.active]="paginacao.paginaAtual == i + 1"
+        style="padding: 0"
+      >
+        <a
+          (click)="irParaPagina(i + 1)"
+          style="cursor: pointer"
+          class="page-link"
+          >{{ pagina }}</a
+        >
+      </li>
+      <li class="page-item col" style="padding: 0">
+        <a
+          (click)="trocarDePaginaProximo()"
+          style="cursor: pointer"
+          class="page-link"
+          >Próximo</a
+        >
+      </li>
+    </ul>
+  </nav>
+</section>
+
+<!--barra de progresso-->
+<div *ngIf="carregando == false" class="progress">
+  <div
+    class="progress-bar w-{{ progressoBar }}"
+    role="progressbar"
+    aria-valuenow="56"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  ></div>
+</div>
+
+<hr class="my-4" />
+<!--Modal dos itens deletados-->
+<div
+  class="modal fade"
+  id="pedidoCadastradosModalDelete"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="pedidoCadastradosModalDeleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pedidoCadastradosModalDeleteLabel">
+          Status da atualizacao:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ status }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
