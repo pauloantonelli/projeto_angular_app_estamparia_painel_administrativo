@@ -1,5 +1,6 @@
 <section>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <hr />
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <img
       src="{{ logo }}"
       alt="logo estamparia pegadas"
@@ -25,12 +26,24 @@
           <a
             [routerLink]="botao"
             [routerLinkActive]="'active'"
-            class="nav-link"
+            (click)="atualizaBadges()"
+            class="flex-sm-fill text-sm-center nav-link"
             href="{{ botao }}"
-            >{{ botao }}</a
           >
+            {{ botao }}
+            <span *ngIf="botao == 'orcamento'" class="badge badge-danger">{{
+              orcamentoNum
+            }}</span>
+            <span *ngIf="botao == 'contato'" class="badge badge-danger">{{
+              contatoNum
+            }}</span>
+            <span *ngIf="botao == 'emails'" class="badge badge-danger">{{
+              emailsNum
+            }}</span>
+          </a>
         </li>
       </ul>
+      <hr />
     </div>
   </nav>
 </section>
