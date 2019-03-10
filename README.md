@@ -1,5 +1,11 @@
-# Painel Administrativo
+# Projeto Estamparia - Painel Administrativo
 
+Frontend Angular 2+: https://github.com/pauloantonelli/projeto_angular_app_estamparia_frontend
+
+Backend NodeJS: https://github.com/pauloantonelli/projeto_angular_app_estamparia_backend
+
+
+# Detalhes técnicos:
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 
 ## Development server
